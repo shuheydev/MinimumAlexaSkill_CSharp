@@ -11,7 +11,7 @@ namespace MinimumAlexaSkill_CSharp
 {
     public class Function
     {
-
+        //hello
         /// <summary>
         /// A simple function that takes a string and does a ToUpper
         /// </summary>
@@ -104,6 +104,7 @@ namespace MinimumAlexaSkill_CSharp
             return skillResponse;
         }
 
+        //ご自分で追加したインテントに合わせて名前や処理を変更してください。
         private SkillResponse HelloWorldIntentHandler(SkillRequest skillRequest)
         {
             var intentRequest = skillRequest.Request as IntentRequest;
@@ -130,6 +131,11 @@ namespace MinimumAlexaSkill_CSharp
             return skillResponse;
         }
 
+        /// <summary>
+        /// 組み込みインテント用
+        /// </summary>
+        /// <param name="skillRequest"></param>
+        /// <returns></returns>
         private SkillResponse HelpIntentHandler(SkillRequest skillRequest)
         {
             var intentRequest = skillRequest.Request as IntentRequest;
@@ -163,6 +169,11 @@ namespace MinimumAlexaSkill_CSharp
         }
 
 
+        /// <summary>
+        /// 組み込みインテント用
+        /// </summary>
+        /// <param name="skillRequest"></param>
+        /// <returns></returns>
         private SkillResponse CancelAndStopIntentHandler(SkillRequest skillRequest)
         {
             var intentRequest = skillRequest.Request as IntentRequest;
@@ -189,19 +200,31 @@ namespace MinimumAlexaSkill_CSharp
             return skillResponse;
         }
 
-
+        /// <summary>
+        /// 組み込みインテント用
+        /// </summary>
+        /// <param name="skillRequest"></param>
+        /// <returns></returns>
         private SkillResponse SessionEndedRequestHandler(SkillRequest skillRequest)
         {
             var sesstionEndedRequest = skillRequest.Request as SessionEndedRequest;
 
-            return new SkillResponse
+            var skillResponse= new SkillResponse
             {
                 Version = "1.0",
                 Response = new ResponseBody()
             };
+
+            skillResponse.Response.ShouldEndSession = true;
+
+            return skillResponse;
         }
 
-
+        /// <summary>
+        /// 組み込みインテント用
+        /// </summary>
+        /// <param name="skillRequest"></param>
+        /// <returns></returns>
         private SkillResponse ErrorHandler(SkillRequest skillRequest)
         {
             var speechText = "Sorry, I can't understand the command. Please say again.";
@@ -223,6 +246,7 @@ namespace MinimumAlexaSkill_CSharp
                     Text = speechText
                 }
             };
+            skillResponse.Response.ShouldEndSession = true;//エラーなのでセッションを終了させなければならない。
 
             return skillResponse;
         }
